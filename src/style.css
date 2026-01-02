@@ -1,0 +1,112 @@
+/* 1. Сброс настроек и базовые стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Убираем выделение текста при тапах и свайпах */
+  user-select: none;
+}
+
+body {
+  /* Запрещаем прокрутку, чтобы экран не "гулял" за пальцем */
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  
+  /* Красивый глубокий фон: в центре темно-бордовый, переходящий в черный */
+  background: radial-gradient(circle at center, #1e030a 0%, #000000 100%);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 2. Настройки холста */
+canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Важно для мобилок: убирает серую вспышку при нажатии */
+  -webkit-tap-highlight-color: transparent;
+  z-index: 1;
+}
+
+/* 3. Стиль для текстовой подсказки */
+#instruction {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  
+  /* Цвет: очень нежный розовый с прозрачностью */
+  color: rgba(255, 182, 193, 0.4);
+  
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  
+  /* Чтобы текст не мешал кликать по частицам под ним */
+  pointer-events: none;
+  z-index: 10;
+  
+  /* Анимация исчезновения через 6 секунд */
+  animation: fadeOut 6s forwards;
+}
+
+/* 4. Анимация плавного исчезновения */
+@keyframes fadeOut {
+  0% { 
+    opacity: 0; 
+    transform: translateY(10px);
+  }
+  15% { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+  80% { 
+    opacity: 1; 
+  }
+  100% { 
+    opacity: 0; 
+    transform: translateY(-10px);
+  }
+}
+
+
+footer {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  z-index: 20;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 182, 193, 0.5); /* Полупрозрачный розовый */
+  letter-spacing: 1px;
+}
+
+footer a {
+  color: rgba(255, 105, 180, 0.8); /* Ярко-розовый (HotPink) */
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+footer a:hover {
+  color: #ff69b4;
+  text-shadow: 0 0 10px #ff69b4; /* Неоновое свечение при наведении */
+  border-bottom: 1px solid #ff69b4;
+}
+
+/* Для мобилок сделаем футер по центру, чтобы было удобнее */
+@media (max-width: 600px) {
+  footer {
+    right: 0;
+    width: 100%;
+    text-align: center;
+    bottom: 10px;
+  }
+}
