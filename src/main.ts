@@ -162,3 +162,26 @@ window.addEventListener('resize', () => {
     canvas.height = window.innerHeight;
     init();
 });
+
+// Создаем аудио-объект
+const audio = new Audio('/music.mp3');
+audio.loop = true; // Зацикливаем
+audio.volume = 0.5; // Громкость на 50%
+
+let isMusicPlaying = false;
+
+// Функция для запуска музыки
+const startMusic = () => {
+    if (!isMusicPlaying) {
+        audio.play().catch(err => console.log("Браузер заблокировал звук:", err));
+        isMusicPlaying = true;
+        
+        // Убираем слушателей, чтобы не запускать музыку повторно при каждом клике
+        window.removeEventListener('mousedown', startMusic);
+        window.removeEventListener('touchstart', startMusic);
+    }
+};
+
+// Слушаем первый клик или тап
+window.addEventListener('mousedown', startMusic);
+window.addEventListener('touchstart', startMusic);
